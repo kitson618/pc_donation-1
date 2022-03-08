@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+    <h1>{{ title }}</h1>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <div class="card-body">
+                <h5 class="card-text">{{ _('Title:') }}</h5>
+                <p class="card-text">{{ change_story.title }}</p>
+                <h5 class="card-text">{{ _('Story:') }}</h5>
+                <p class="card-text">{{ change_story.story }}</p>
+                <img style="height: 400px" src="{{ image('student/photo/' + change_story.apply_photo) }}">
+            </div>
+            {% if form %}
+                {{ wtf.quick_form(form) }}
+                <br>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        {% if change_story.apply_status_id == 8 %}
+            <div class="col-md-12">
+                <a href="{{ url_for('student.draft',data_id=data_id) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+                </a>
+            </div>
+        {% else %}
+            <div class="col-md-12">
+                <a href="{{ url_for('student.details_story',data_id=data_id) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

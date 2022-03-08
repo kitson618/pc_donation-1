@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h1>{{ title }}</h1>
+                <input type="hidden" id="item_id">
+{#                {% for filter in filter_name %}#}
+{#                    <button onclick='location.href="/donate/donate_story/{{ filter.id }}"'#}
+{#                            type="button">{{ filter.item_name }}</button>#}
+{#                {% endfor %}#}
+                {% for filter in filter_name %}
+                    <button class="" onclick="document.getElementById('item_id').value = '{{ filter.id }}';
+                    get_stu_locations();" type="button">{{ filter.item_name }}</button>
+                {% endfor %}
+                <!--Old version-->
+                {#                <table class="table">#}
+                {#                    <thead>#}
+                {#                    <tr>#}
+                {#                        <th scope="col">{{ _('Title') }}</th>#}
+                {#                        <th scope="col">{{ _('Item') }}</th>#}
+                {#                        <th scope="col">{{ _('Date of Order') }}</th>#}
+                {#                    </tr>#}
+                {#                    </thead>#}
+                {#                    <tbody>#}
+                {#                    {% for a in apply %}#}
+                {#                        <tr>#}
+                {#                            <td><a href="/donate/donate_story/details/{{ a.id }}"#}
+                {#                                   role="button">{{ a.title }}</a></td>#}
+                {#                            <td>{{ a.item_name }}</td>#}
+                {#                            <td>{{ a.idtime }}</td>#}
+                {#                        </tr>#}
+                {#                    {% endfor %}#}
+                {#                    </tbody>#}
+                {#                </table>#}
+            </div>
+            <div class="row">
+                {#                {{ story_map.html }}#}
+            </div>
+            <div class="row">
+                <div id="map-canvas" class="z-depth-1-half map-container center-block col-md-12"
+                     style="height: 700px">
+                    <iframe src="https://maps.google.com/maps" frameborder="0" style="border:0"
+                            allowfullscreen></iframe>
+                </div>
+{#                <div id="infos" class="col-md-6">#}
+{#                    <h2><span></span> visible beaches</h2>#}
+{#                    {% for location in stu_locations %}#}
+{#                        <div class="info info-{{ loop.index }}">{{ location.application.title }}</div>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <a href="{{ url_for('donate.donate_view') }}">
+            <button type="button" class="btn btn-primary btn-lg btn-block">{{ _('Back') }}</button>
+        </a>
+    </div>
+{% endblock %}
+
+{% block current_app_scripts %}
+    {# {{ story_map.js }}#}
+    <script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initialize&libraries=&v=weekly"
+            defer></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+{% endblock %}

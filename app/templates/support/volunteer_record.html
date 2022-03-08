@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <div class="row">
+                <h1>{{ title }}</h1>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{ _('Student Name') }}</th>
+                        <th scope="col">{{ _('Repair Address') }}</th>
+                        <th scope="col">{{ _('Phone Number') }}</th>
+                        <th scope="col">{{ _('Title') }}</th>
+                        <th scope="col">{{ _('Description') }}</th>
+                        <th scope="col">{{ _('Appointment Data') }}</th>
+                        <th scope="col">{{ _('Appointment Time') }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in repair_record %}
+                        <tr>
+                            <td>{{ record.student_name }}</td>
+                            <td>{{ record.student_address }}</td>
+                            <td>{{ record.phone_number }}</td>
+                            <td>{{ record.title }}</td>
+                            <td>{{ record.description }}</td>
+                            <td>{{ record.appointment_data }}</td>
+                            <td>{{ record.appointment_time }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

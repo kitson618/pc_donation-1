@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block current_app_content %}
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+{#                <th scope="col">student name</th>#}
+{#                <th scope="col">email</th>#}
+{#                <th scope="col">title</th>#}
+{#                <th scope="col">status</th>#}
+                <th scope="col">Permission</th>
+            </tr>
+            </thead>
+            <tbody>
+{#            {% for a in apply %}#}
+{#                <tr>#}
+{#                    <th scope="row">{{ a.id }}</th>#}
+{#                    <td>{{ a.title }}</td>#}
+{#                    <td>{{ a.status }}</td>#}
+{##}
+{#                </tr>#}
+{#            {% endfor %}#}
+            <tr>
+{#            {% if user == current_user %}#}
+                    <td><a href="{{ url_for('main.edit_profile') }}">{{ _('Submit Permission') }}</a></td>
+{#                {% endif %}#}
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

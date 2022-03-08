@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{#{% block current_app_styles %}#}
+{#    <style>#}
+{#        body {#}
+{#            margin: 25px;#}
+{##}
+{#        }#}
+{##}
+{#        div.card {#}
+{#            background-size: cover;#}
+{#            max-width: 100%;#}
+{#            height: auto;#}
+{#            background-color: white;#}
+{#            margin-bottom: 25px;#}
+{#        }#}
+{##}
+{#        div.cardsimg {#}
+{#            display: block;#}
+{#            margin-left: auto;#}
+{#            margin-right: auto;#}
+{#            width: 80%;#}
+{#        }#}
+{##}
+{#        div.card {#}
+{#            text-align: center;#}
+{#            padding: 10px 20px;#}
+{#        }#}
+{#    </style>#}
+{#{% endblock %}#}
+{% block current_app_content %}
+    <div class="container">
+        <div class="card col-md-12">
+            <div class="card-body">
+                <h5 class="card-title">{{ repair.title }}</h5>
+                <p class="card-text">{{ repair.description }}</p>
+                <p class="card-text"><small class="text-muted">{{ repair.idtime }}</small></p>
+            </div>
+            <!--plase change path-->
+            <div class="cardsimg">
+                {#                <!--<img src="{{ url_for('static', filename='student/photo/' + repair.apply_repair_photo) }}">-->#}
+                {#                <!--<img src="{{'/static/student/photo/' + repair.apply_repair_photo}}">-->#}
+                <!--cloud-->
+                {#                <img src="{{ url_for('static', filename='storage/pictures/student/photo/' + repair.apply_repair_photo) }}">#}
+                <img style="height: 400px" src="{{ image('student/photo/' + repair.apply_repair_photo) }}">
+                {#                <!--<img src="{{'/home/pc_donation/app/static/storage/pictures/student/photo/'+repair.apply_repair_photo}}">-->#}
+            </div>
+        </div>
+    </div>
+    <hr>
+    {% if repair.apply_status_id == 1 %}
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{{ url_for('student.repair_history') }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="{{ url_for('student.edit_problem',data_id=repair.id) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Edit Problem") }}</button>
+                </a>
+            </div>
+        </div>
+        <br>
+        <hr>
+    {% else %}
+        <div class="col-md-12">
+            <a href="{{ url_for('student.repair_history') }}">
+                <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block current_app_scripts %}
+{% endblock %}

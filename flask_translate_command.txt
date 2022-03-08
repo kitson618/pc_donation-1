@@ -1,0 +1,4 @@
+export FLASK_APP=pc_donation.py
+flask translate init zh
+flask translate update
+flask translate compile

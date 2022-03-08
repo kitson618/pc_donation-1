@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    {{ wtf.quick_form(form) }}
+                </div>
+                <div class="col-md-6">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">{{ _('Photo') }}</th>
+                            <th scope="col">{{ _('Item') }}</th>
+                            <th scope="col">{{ _('Item Status') }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in items %}
+                            <tr>
+                                <td>
+                                    <img class="img-thumbnail" style="height: 50px" src="{{ image('donate_photo/' + item.photo) }}">
+                                </td>
+                                <td>{{ item.item.item_name }}</td>
+                                <td>{{ item.item_status.item_Status }}</td>
+                                <td>
+                                    <form action="{{ url_for('donate.donate_del') }}" method="post">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                        <input class="btn btn-primary" type="submit" name="{{ item.id }}"
+                                               value="Del">
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <a href="{{ url_for('donate.donate_view') }}">
+                <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+            </a>
+        </div>
+        <div class="col-lg-6">
+            <a href="{{ url_for('donate.donate_story') }}">
+                <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Donate Now") }}</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

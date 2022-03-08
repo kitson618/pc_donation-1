@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <h1>{{ title }}</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">{{ _('Message ID') }}</th>
+                        <th scope="col">{{ _('User Name') }}</th>
+                        <th scope="col">{{ _('Latest Timestamp') }}</th>
+                    </tr>
+                </thead>
+                {% if donateItem %}
+                <tbody>
+                    <tr>
+                        <td><a href="msgbox/{{ donateItem.room_id }}" role="button">{{ donateItem.room_id }}</a></td>
+                        <td>{{ userStatus.full_name}}</td>
+                        <td>{{ donateItem.timestamp }}</td>
+                    </tr>
+                </tbody>
+                {% endif%}
+            </table>
+            {% if not donateItem %}
+                <p>{{ _('No record') }}</p>
+            {% endif%}
+        </div>
+    </div>
+</div>
+{% endblock %}

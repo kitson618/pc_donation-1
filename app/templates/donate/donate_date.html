@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block current_app_content %}
+    <h1>{{ _('Donator Date') }}</h1>
+    <div class="row">
+        <div class="col-md-6">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{{ url_for('donate.donate_item', data_id=data_id, item_id=item_id) }}">
+                <button type="button" class="btn btn-primary btn-lg btn-block">{{ _('Back') }}</button>
+            </a>
+        </div>
+        <div class="col-md-6">
+            {% if record.transaction_date is none and record.transaction_time is none %}
+                <a href="{{ url_for('donate.donate_location', data_id=data_id, item_id=item_id) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block" disabled>{{ _('Choose your donate location') }}</button>
+                </a>
+            {% else %}
+                <a href="{{ url_for('donate.donate_location', data_id=data_id, item_id=item_id) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _('Choose your donate location') }}
+                    </button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block current_app_styles %}
+<style>
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+  }
+</style>
+{% endblock %}
+
+{% block current_app_content %}
+
+    <div class="row scrollmenu">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">{{ _('Teacher Name') }}</th>
+                    <th scope="col">{{ _('username') }}</th>
+                    <th scope="col">{{ _('Teacher Email') }}</th>
+                    <th scope="col">{{ _('Phone Number') }}</th>
+                    <th scope="col">{{ _('School Name') }}</th>
+                    <th scope="col">{{ _('School Address') }}</th>
+                    <th scope="col">{{ _('School website') }}</th>
+                    <th scope="col">{{ _('Teacher Office Phone Number') }}</th>
+                    <th scope="col">{{ _('Permission State') }}</th>
+                    <th scope="col">{{ _('Permission Date') }}</th>
+                </tr>
+                </thead>
+                {% for admin_record in record %}
+                    <tbody>
+                        <tr>
+                            <td>{{ admin_record.full_name }}</td>
+                            <td>{{ admin_record.username }}</td>
+                            <td>{{ admin_record.email }}</td>
+                            <td>{{ admin_record.phone_number }}</td>
+                            <td>{{ admin_record.school_name }}</td>
+                            <td>{{ admin_record.school_address }}</td>
+                            <td>{{ admin_record.school_website }}</td>
+                            <td>{{ admin_record.office_phone_number }}</td>
+                            <td>{{ admin_record.apply_status.status }}</td>
+                            <td>{{ admin_record.idtime }}</td>
+
+                        </tr>
+                    </tbody>
+                {% endfor %}
+
+            </table>
+    </div>
+
+{% endblock %}

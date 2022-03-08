@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+    <h1>{{ _('Teacher') }}</h1>
+    <form action="{{ url_for('auth.support_teacher') }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="form-group">
+            <label class="form-control-label">{{ _("School Name") }}</label>
+            <input type="text" class="form-control" name=school_name placeholder="{{ _('Please enter your school name') }}" required>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label">{{ _("School Website") }}</label>
+            <input type="url" class="form-control" name=school_website placeholder="{{ _('Please enter your school URL') }}" required>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label">{{ _("School Address, Please click the location on the map.") }}</label>
+            <div id="stu_reg_map" class="z-depth-1-half map-container center-block col-md-12" style="height: 300px">
+                <iframe src="https://maps.google.com/maps" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+        </div>
+         <div class="form-group">
+            <label class="form-control-label">{{ _("Office Phone Number") }}</label>
+            <input type="text" class="form-control" name=office_phone_number pattern=".{8}" title="{{ _('Phone number must be 8 digits.') }}" placeholder="{{ _('Please enter your Office Phone Number') }}" required oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');" >
+        </div>
+        <button class="btn btn-primary" type="submit" name="location" onclick="stuRegMap()" value=""
+                id="point_location" disabled>{{ _("Submit form") }}
+        </button>
+    </form>
+{% endblock %}
+
+{% block current_app_scripts %}
+    <script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=stuRegMap&libraries=&v=weekly"
+            defer></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/map.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,23 @@
+<h1>{{ _('Congratulations you already have donors donating the items you need') }}</h1>
+<p>{{ _('Dear') }} {{ name }},</p>
+<p>{{ _('Your application has been confirmed') }}</p>
+<p>{{ _('The donor will donate the following items to you:') }}</p>
+<p>{{ item_name }}</p>
+<p>
+    <img class="img-thumbnail" style="height: 200px" src="data:image/jpeg;base64,{{ photo }}"/>
+</p>
+<br>
+<p>{{ _('The transaction location provides by the donator shown as below:') }}</p>
+<p>{{ address }}</p>
+<div class="row">
+    <img style="height: 400px; width: 800px"
+         src="https://maps.googleapis.com/maps/api/staticmap?cen
+         ter={{ item_record.latitude }},{{ item_record.longitude }}&scale=2&zoom=18&size=400x300&maptype=roadmap
+         &markers={{ item_record.latitude }},{{ item_record.longitude }}&key={{ key }}"/>
+</div>
+<p>{{ _('The available date and time for the donor:') }}</p>
+<p>{{ date[0] }} {{ date[1] }}</p>
+<p>{{ _('Here is the donor\'s phone number') }}</p>
+<p>{{ phone }}</p>
+<br>
+<p>{{ _('Cheers!') }}</p>

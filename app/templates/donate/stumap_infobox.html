@@ -1,0 +1,9 @@
+<div>
+    <div class="text-center">
+        <a href="/donate/donate_story/details/{{ loc.application.id }}/{{ loc.item_id }}" role="button">{{ loc.application.title }}</a>
+    </div>
+    <div>
+{#        <img class="img-thumbnail" style="height: 100px" src="{{ url_for ('static', filename='student/photo/' + loc.application.apply_photo) }}">#}
+        <img class="img-thumbnail" style="height: 100px" src="{{ image('student/photo/' + loc.application.apply_photo) }}">
+    </div>
+</div>

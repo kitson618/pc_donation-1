@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+{% block current_app_content %}
+    <div class="col-md-6">
+        {{ wtf.quick_form(form) }}
+    </div>
+    <div class="col-md-6">
+        <!--localTest-->
+{#        <!--<img src="{{ url_for('static', filename='student/photo/' + information_data) }}">-->#}
+
+        <!--cloud-->
+{#        <img src="{{ url_for('static', filename='storage/pictures/student/photo/' + repair.apply_repair_photo) }}">#}
+{#        <img style="height: 400px" src="{{ image('student/photo/' + repair.apply_repair_photo) }}">#}
+    </div>
+{% endblock %}
+
+

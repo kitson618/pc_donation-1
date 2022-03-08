@@ -1,0 +1,21 @@
+<h1>{{ _('Congratulations you already have made an appointment with the student') }}</h1>
+<p>{{ _('Dear') }} {{ name }},</p>
+<p>{{ _('Your donate application has been sent to the student') }}</p>
+<p>{{ _('Here is your donated item:') }}</p>
+<p>{{ item_name }}</p>
+<p>
+    <img class="img-thumbnail" style="height: 200px" src="data:image/jpeg;base64,{{ photo }}"/>
+</p>
+<br>
+<p>{{ _('The transaction location was chosen by you:') }}</p>
+<p>{{ address }}</p>
+<div class="row">
+    <img style="height: 400px; width: 800px"
+         src="https://maps.googleapis.com/maps/api/staticmap?cen
+         ter={{ item_record.latitude }},{{ item_record.longitude }}&scale=2&zoom=18&size=400x300&maptype=roadmap
+         &markers={{ item_record.latitude }},{{ item_record.longitude }}&key={{ key }}"/>
+</div>
+<p>{{ _('The date and time picked by yourself:') }}</p>
+<p>{{ date[0] }} {{ date[1] }}</p>
+<br>
+<p>{{ _('Cheers!') }}</p>

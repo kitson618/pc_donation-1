@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">{{ title }}</h1>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">{{ _("Title") }}</th>
+                    <th scope="col">{{ _("Data of Order")}}</th>
+                    <th scope="col">{{ _("Application Status")}}</th>
+                    <th scope="col">{{ _("Action") }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for repair in apply %}
+                <tr>
+                    <td><a href="{{ url_for('student.repair_details', data_id=repair.id) }}" role="button">{{
+                            repair.title }}</a></td>
+                    <td>{{ repair.idtime }}</td>
+                    <td>{{ repair.apply_status.status }}</td>
+                    {% if repair.apply_status_id == 1 %}
+                    <td>
+
+                        <a class="btn btn-primary" href="{{ url_for('student.edit_problem', data_id=repair.id) }}"
+                            role="button">{{ _("Edit Problem")}}</a>
+                    </td>
+                    {% elif repair.apply_status_id == 7 %}
+                    <td>
+                        <form action="{{ url_for("student.send_repairthanks") }}" method="post">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                            <button class="btn btn-primary" type="submit" name="repair" value='{{ repair.id }}'>{{
+                                _("Thank You Message")}}
+                            </button>
+                        </form>
+                    </td>
+                    {% elif repair.apply_status_id == 5 %}
+                    <td>
+                        <a class="btn btn-primary" href="{{ url_for('student.dateconfirmrepair') }}" role="button">{{ _("Date
+                            Confirm")}}</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <a href="{{ url_for('student.student_view') }}">
+            <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">{{ title }}</h1>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-5">
+                <h5>{{ _("Continue to use your story to apply")}}:</h5>
+                <form action="{{ url_for('student.checkstory') }}" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">{{ _("Apply") }}</button>
+                </form>
+            </div>
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-5">
+                <h5>{{ _("Enter the new story to apply")}}:</h5>
+                <a href="{{ url_for('student.application_story') }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("New story")}}</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <a href="{{ url_for('student.student_view') }}">
+            <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

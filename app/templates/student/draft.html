@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_styles %}
+    <style>
+        body {
+            margin: 25px;
+
+        }
+
+        div.card {
+            background-size: cover;
+            max-width: 100%;
+            height: auto;
+            background-color: white;
+            margin-bottom: 25px;
+        }
+
+        div.cardsimg {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+        }
+
+        div.card {
+            text-align: center;
+            padding: 10px 20px;
+        }
+    </style>
+
+{% endblock %}
+{% block current_app_content %}
+    <div class="container">
+        <div class="card col-md-12">
+            <div class="card-body">
+                <h5 class="card-title">{{ _("Application Check")}}</h5>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{ _("Story") }}</th>
+                        <th scope="col">{{ _("Item Choice")}}</th>
+                        <th scope="col">{{ _("Location Choice")}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>✔</td>
+                        {% if itemsCheck == 0 %}
+                            <td>❌</td>
+                        {% else %}
+                            <td>✔</td>
+                        {% endif %}
+                        {% if mapCheck == 0 %}
+                            <td>❌</td>
+                        {% else %}
+                            <td>✔</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <a href="{{ url_for('student.edit_title',data_id= story.id ) }}">
+                                <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Edit title and story")}}
+                                </button>
+                            </a>
+
+                        </td>
+
+                        <td>
+
+                            <a href="{{ url_for('student.edit_item',data_id= story.id ) }}">
+                                <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Edit item")}}</button>
+                            </a>
+
+                        </td>
+
+                        <td>
+
+                            <a href="{{ url_for('student.edit_map',data_id= story.id ) }}">
+                                <button type="button" class="btn btn-primary btn-lg btn-block"
+                                        {% if itemsCheck == 0 %}disabled="disabled"{% endif %}>{{ _("Edit map and Send to
+                                        teacher")}}
+                                </button>
+                            </a>
+
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card col-md-12">
+            <div class="card-body">
+                <h5 class="card-title">{{ story.title }}</h5>
+                <p class="card-text">{{ story.story }}</p>
+                <p class="card-text"><small class="text-muted">{{ story.idtime }}</small></p>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{ _("Item") }}</th>
+                        <th scope="col">{{ _("Quantity") }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.item.item_name }}</td>
+                            <td>{{ item.quantity }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!--plase change path-->
+            <div class="cardsimg">
+                {#                <img src="{{ url_for ('static', filename='student/photo/' + story.apply_photo) }}">#}
+                {#                <!--<img src="{{'/static/student/photo/' + story.apply_photo}}">-->#}
+                <!--cloud-->
+                <img style="height: 400px" src="{{ image('student/photo/' + story.apply_photo) }}">
+                {#                <img src="{{ url_for('static', filename='storage/pictures/student/photo/' + story.apply_photo) }}">#}
+            </div>
+            </br>
+        </div>
+
+
+    </div>
+    </div>
+
+
+
+    <div class="row3">
+        <div class="col-md-12">
+            <a href="{{ url_for('student.application_history') }}">
+                <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+            </a>
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block current_app_scripts %}
+{% endblock %}

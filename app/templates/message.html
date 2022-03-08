@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="row">
+            <h5>{{ _('Room ID') }}: {{ msg_id }}</h5>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">{{ _('Message History') }}</th>
+                        <th scope="col">{{ _('Timestamp') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in donateItem %}
+                    <tr>
+                        <td>{{ a.message }}</td>
+                        <td>{{ a.timestamp }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <form action="{{msg_id}}" method="POST" class="col-md-12">
+                <div class="form-group">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <label for="msg"><b>{{ _('Insert Message') }}</b></label>
+                    <textarea class="form-control" rows="3" placeholder="{{ _('Type message..') }}" name="msg" required></textarea>
+
+                </div>
+                <button type="submit" class="btn btn-primary">{{ _('Send') }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

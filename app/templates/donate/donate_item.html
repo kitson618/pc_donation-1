@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+    <div class="row">
+        <div class="col-md-6">
+            {#            <form method="post" role="form">#}
+            {#                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>#}
+            {#                {{ wtf.form_field(form.item) }}#}
+            {#                {{ form.item.label }}#}
+            {#                {{ form.item(**{"onchange":"document.getElementById('show_img').src = this.value"}) }}#}
+            {#                {{ wtf.form_field(form.submit) }}#}
+            {#            </form>#}
+            {{ wtf.quick_form(form) }}
+        </div>
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">{{ _("Item") }}</th>
+                    <th scope="col">{{ _("Donate Status") }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {#                {% for service in services %}#}
+                <tr>
+                    <td>{{ service.item.item_name }}</td>
+                    {% if service.donator_id == default %}
+                        <td>{{ service.item_obtain.obtain }}</td>
+                    {% elif service.obtained_id == 2 %}
+                        <td>{{ service.item_obtain.obtain }}</td>
+                    {% elif service.donator_id == current_user.id %}
+                        <td>
+                            Selected
+                        </td>
+                        <td>
+                            <form action="{{ url_for('donate.donate_item', data_id=data_id, item_id=item_id) }}"
+                                  method="post">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <input class="btn btn-primary" type="submit" name="{{ service.id }}" value="{{ _('Cancel') }}">
+                            </form>
+                        </td>
+                    {% endif %}
+                </tr>
+                {#                {% endfor %}#}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% if form.item.data is none %}
+        <div class="col-md-12"></div>
+    {% else %}
+        <div class="col-md-12">
+            <img class="img-thumbnail" style="height: 200px" src="{{ image(form.item) }}">
+        </div>
+    {% endif %}
+    {% if check_photo == 0 %}
+        <div class="col-md-12"></div>
+    {% else %}
+        <div class="col-md-12">
+            <!--test-->
+            <img class="img-thumbnail" style="height: 200px" id="show_img" src="{{ donate_file }}">
+            {#            <img class="img-thumbnail" style="height: 200px" id="show_img"#}
+            {#                 src="{{ url_for ('static', filename='donate_photo/' + donate_file) }}">#}
+            <!--cloud-->
+            {#        <img class="img-thumbnail" style="height: 200px" id="show_img"#}
+            {#             src="{{ url_for ('static', filename='storage/pictures/donate_photo/' + donate_file) }}">#}
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-6">
+            <form method='POST' action="{{ url_for('donate.back_and_cancel') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="stu_id" value="{{ service.application_id }}">
+                <input type="hidden" name="stu_item" value="{{ service.item_id }}">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">{{ _("Back and Cancel") }}</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            {% if service.donator_id == current_user.id %}
+                <a href="{{ url_for('donate.donate_date', data_id=data_id, item_id=item_id) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Choose your donate time") }}</button>
+                </a>
+            {% else %}
+                <a href="{{ url_for('donate.donate_date', data_id=data_id, item_id=item_id) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block" disabled>{{ _("Choose your donate time") }}
+                    </button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block current_app_content %}
+
+    <div class="row">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">{{ _('Student Name') }}</th>
+                    <th scope="col">{{ _('Title') }}</th>
+                    <th scope="col">{{ _('Story') }}</th>
+{#                    <th scope="col">{{ _('Apply Status') }}</th>#}
+                    <th scope="col">{{ _('Apply Data') }}</th>
+                </tr>
+                </thead>
+                {% for teacher_apply in record %}
+                    <tbody>
+                        <tr>
+                            <td>{{ teacher_apply.student_name }}</td>
+                            <td>{{ teacher_apply.title }}</td>
+                            <td>{{ teacher_apply.story }}</td>
+                            <td>{{ teacher_apply.idtime }}</td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+
+            </table>
+        {% if records %}
+        {% else %}
+            {{ _('No Record') }}
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+
+{#<th scope="col">student name</th>#}
+{#                <th scope="col">email</th>#}
+{#                <th scope="col">title</th>#}
+{#                <th scope="col">status</th>#}
+{#                <th scope="col">Permission</th>#}

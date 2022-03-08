@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">{{ title }}</h1>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">{{ _("Title") }}</th>
+                    <th scope="col">{{ _("Data of Order")}}</th>
+                    <th scope="col">{{ _("Application Status")}}</th>
+                    <th scope="col">{{ _("Action") }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in apply %}
+                <tr>
+                    {% if a.apply_status_id == 8 %}
+                    <td><a href="{{ url_for('student.draft', data_id=a.id) }} " role="button">{{ a.title }}</a></td>
+                    {% else%}
+                    <td><a href="{{ url_for('student.details_story', data_id=a.id) }} " role="button">{{ a.title }}</a>
+                    </td>
+                    {% endif %}
+                    <td>{{ a.idtime }}</td>
+                    <td>{{ a.apply_status.status }}</td>
+                    {% if a.apply_status_id == 1 %}
+                    <td>
+                        <a class="btn btn-primary" href="{{ url_for('student.resend_item') }}" role="button">{{
+                            _("Resend") }}</a>
+                    </td>
+                    {% elif a.apply_status_id == 5 %}
+                    <td>
+                        <a class="btn btn-primary" href="{{ url_for('student.dateconfirm') }}" role="button">{{ _("Date
+                            Confirm")}}</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <a href="{{ url_for('student.student_view') }}">
+            <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

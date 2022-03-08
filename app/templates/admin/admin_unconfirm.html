@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block current_app_content %}
+    <div class="page-header">
+        <h3>{{ _('Our admin have not confirmed your account yet.') }}</h3>
+        <p>
+            {{ _('Before you can access this site you need to contect our admin.') }}
+
+        </p>
+        <p>
+            {{ _('Contect Admin') }}
+            <a href="{{ url_for('admin.resend_confirmation') }}" class="btn btn-outline-primary">{{ _('Click here') }}</a>
+        </p>
+    </div>
+{% endblock %}

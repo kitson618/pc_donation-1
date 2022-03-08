@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+    <h1>{{ _('Student') }}</h1>
+    {#    {% if form %}#}
+    {#        {{ wtf.quick_form(form) }}#}
+    {#        <br>#}
+    {#    {% endif %}#}
+    <form action="{{ url_for('auth.confirm_student') }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="form-group">
+            <label class="form-control-label">{{ _("Teacher Email") }}</label>
+            <div class="input-group input-group-append">
+                <input type="text" class="form-control" placeholder="{{ _('Please enter your teacher\'s email') }}"
+                       name="teacher_email">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">@</span>
+                </div>
+                <input type="text" class="form-control" placeholder="{{ _('Please enter prefix domain (if exist)') }}"
+                       name="teacher_pre_email">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">.{{ domain }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label">{{ _("School Name") }}</label>
+            <input type="text" class="form-control" name=school_name placeholder="{{ _('Please enter your school name') }}">
+        </div>
+        <div class="form-group">
+            <label class="form-control-label">{{ _("School Website") }}</label>
+            <input type="url" class="form-control" name=school_URL placeholder="{{ _('Please enter your school URL') }}">
+        </div>
+        <div class="form-group">
+            <label class="form-control-label">{{ _("School Address") }}</label>
+            <div id="stu_reg_map" class="z-depth-1-half map-container center-block col-md-12" style="height: 300px">
+                <iframe src="https://maps.google.com/maps" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" name="location" value=""
+                id="point_location">{{ _("Submit form") }}
+        </button>
+    </form>
+{% endblock %}
+
+{% block current_app_scripts %}
+    <script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=stuRegMap&libraries=&v=weekly"
+            defer></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script type="text/javascript" >
+        $(document).ready(function() {
+            stuRegMap();
+            $("#point_location").click(function() {
+              if(!$(this).val()){
+                  alert("Please pin a point in the map!");
+                  return false;
+              }
+            });
+        });
+    </script>
+{% endblock %}

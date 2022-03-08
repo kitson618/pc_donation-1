@@ -1,0 +1,20 @@
+sudo docker build -t pcdonation.azurecr.io/pc_donation:v0.0.0 .
+sudo docker swarm init
+sudo docker stack deploy -c docker-compose.yml pcdonationstack
+sudo docker stack rm pcdonationstack
+sudo docker swarm leave --force
+
+sudo docker stack ps pcdonationstack
+sudo docker ps -a
+
+docker-compose up --build -d
+docker-compose push
+docker-compose down
+
+docker images
+
+sudo docker rmi pcdonation.azurecr.io/pc_donation:v0.0.0
+docker rm $(docker ps -aq)
+docker rmi $(docker images -a -q)
+
+az acr login --name <repositories>

@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{#{% block current_app_styles %}#}
+{#    <style>#}
+{#        body {#}
+{#            margin: 25px;#}
+{##}
+{#        }#}
+{##}
+{#        div.card {#}
+{#            background-size: cover;#}
+{#            max-width: 100%;#}
+{#            height: auto;#}
+{#            background-color: white;#}
+{#            margin-bottom: 25px;#}
+{#        }#}
+{##}
+{#        div.cardsimg {#}
+{#            display: block;#}
+{#            margin-left: auto;#}
+{#            margin-right: auto;#}
+{#            width: 80%;#}
+{#        }#}
+{##}
+{#        div.card {#}
+{#            text-align: center;#}
+{#            padding: 10px 20px;#}
+{#        }#}
+{#    </style>#}
+{##}
+{#{% endblock %}#}
+{% block current_app_content %}
+    <div class="container">
+        <div class="card col-md-12">
+            <div class="card-body">
+                <h5 class="card-title">{{ story.title }}</h5>
+                <p class="card-text">{{ story.story }}</p>
+                <p class="card-text"><small class="text-muted">{{ story.idtime }}</small></p>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{ _("Item") }}</th>
+                        <th scope="col">{{ _("Quantity") }}</th>
+                        <th scope="col">{{ _("Donate Status") }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.item.item_name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ _(item.item_obtain.obtain) }}</td>
+                            {% if story.apply_status_id == 3 %}
+                                {% if item.donator_id !=number %}
+                                    {% if item.obtained_id ==1 %}
+                                        <td>
+                                            <form action="{{ url_for("student.send_thanks") }}" method="post">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                                <button class="btn btn-primary" type="submit" name="Obtained"
+                                                        value='{{ item.id }}'>{{ _("Thank You Message") }}
+                                                </button>
+                                            </form>
+                                        </td>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!--plase change path-->
+            <div class="cardsimg">
+                {#                <img src="{{ url_for ('static', filename='student/photo/' + story.apply_photo) }}">#}
+                {#                <!--<img src="{{'/static/student/photo/' + story.apply_photo}}">-->#}
+                <!--cloud-->
+                <img style="height: 400px" src="{{ image('student/photo/' + story.apply_photo) }}">
+                {#                <img src="{{ url_for('static', filename='storage/pictures/student/photo/' + story.apply_photo) }}">#}
+            </div>
+        </div>
+    </div>
+    {% if story.apply_status_id == 1 %}
+        <div class="row">
+            <div class="col-md-4">
+                <a href="{{ url_for('student.edit_title',data_id= story.id ) }}">
+                    <button type="button"
+                            class="btn btn-primary btn-lg btn-block">{{ _("Edit Title and Story") }}</button>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ url_for('student.edit_item',data_id= story.id ) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Edit Item") }}</button>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ url_for('student.edit_map',data_id= story.id ) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Edit Map") }}</button>
+                </a>
+            </div>
+        </div>
+        <br>
+        <hr>
+        {#    {% elif story.apply_status_id == 8 %}#}
+        {#        <div class="row2">#}
+        {#            <div class="col-md-4">#}
+        {#                <a href="{{ url_for('student.edit_title',data_id= story.id ) }}">#}
+        {#                    <button type="button" class="btn btn-primary btn-lg btn-block">Edit Title and Story</button>#}
+        {#                </a>#}
+        {#            </div>#}
+        {#            <div class="col-md-4">#}
+        {#                <a href="{{ url_for('student.edit_item',data_id= story.id ) }}">#}
+        {#                    <button type="button" class="btn btn-primary btn-lg btn-block">Edit Item</button>#}
+        {#                </a>#}
+        {#            </div>#}
+        {#            <div class="col-md-4">#}
+        {#                <a href="{{ url_for('student.edit_map',data_id= story.id ) }}">#}
+        {#                    <button type="button" class="btn btn-primary btn-lg btn-block">Edit Map</button>#}
+        {#                </a>#}
+        {#            </div>#}
+        {#        </div>#}
+        {#        <br>#}
+        {#        <hr>#}
+    {% endif %}
+
+    <div class="row3">
+        <div class="col-md-12">
+            <a href="{{ url_for('student.application_history') }}">
+                <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+            </a>
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block current_app_scripts %}
+{% endblock %}

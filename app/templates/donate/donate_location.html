@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block current_app_styles %}
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}">
+{% endblock %}
+
+{% block current_app_content %}
+    <div class="row">
+        <div id="donate_map" class="z-depth-1-half map-container center-block col-md-12" style="height: 700px">
+            <iframe src="https://maps.google.com/maps" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{{ url_for('donate.donate_date', data_id=data_id, item_id=item_id) }}">
+                <button type="button" class="btn btn-primary btn-lg btn-block">{{ _('Back') }}</button>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <form action="{{ url_for('donate.donate_submit') }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="stu_id" value="{{ ser.application_id }}">
+                <input type="hidden" name="stu_item" value="{{ ser.item_id }}">
+                <button type="submit" class="btn btn-primary btn-lg btn-block" name="location" onclick="initMap()"
+                        value=""
+                        id="point_location"
+                        disabled>{{ _('Submit') }}
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block current_app_scripts %}
+    <script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap&libraries=&v=weekly"
+            defer></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/map.js') }}"></script>
+{% endblock %}

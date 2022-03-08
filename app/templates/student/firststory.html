@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block current_app_content %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">{{ title }}</h1>
+        </div>
+        <div class="card-body">
+            {% if form %}
+                {{ wtf.quick_form(form) }}
+                <br>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        {% if backId ==1 %}
+            <div class="col-md-12">
+                <a href="{{ url_for('student.student_view') }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

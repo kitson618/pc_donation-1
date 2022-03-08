@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{#{% block current_app_styles %}#}
+{#    <style>#}
+{#        body {#}
+{#            margin: 25px;#}
+{##}
+{#        }#}
+{##}
+{#        div.card {#}
+{#            background-size: cover;#}
+{#            max-width: 100%;#}
+{#            height: auto;#}
+{#            background-color: white;#}
+{#            margin-bottom: 25px;#}
+{#        }#}
+{##}
+{#        div.card {#}
+{#            text-align: center;#}
+{#            padding: 10px 20px;#}
+{#        }#}
+{#    </style>#}
+{#{% endblock %}#}
+{% block current_app_content %}
+    <div class="container">
+        <div class="card col-md-12">
+            <div class="card-body">
+                <h5 class="card-title">{{ story.application.title }}</h5>
+                <p class="card-text">{{ story.application.story }}</p>
+                <p class="card-text"><small class="text-muted">{{ story.application.idtime }}</small></p>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{ _("Item") }}</th>
+                        <th scope="col">{{ _("Quantity") }}</th>
+                        <th scope="col">{{ _("Donate Status") }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ story.item.item_name }}</td>
+                        <td>{{ story.quantity }}</td>
+                        <td>{{ story.item_obtain.obtain }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <a href="{{ url_for('donate.donate_story') }}">
+                <button type="button" class="btn btn-primary btn-lg btn-block">{{ _('Back') }}</button>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('donate.donate_item', data_id=story.application_id, item_id=story.item_id) }}">
+                <button type="button"
+                        class="btn btn-primary btn-lg btn-block" {{ 'disabled' if not have_donate == True }}>
+                    {{ _('Donate your item to this student') }}
+                </button>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+{% block current_app_scripts %}
+{% endblock %}

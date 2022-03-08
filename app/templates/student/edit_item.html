@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block current_app_content %}
+    <div class="container">
+        <div class="row1">
+            <div class="col-md-6">
+                {{ wtf.quick_form(form) }}
+            </div>
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{ _("Item") }}</th>
+                        <th scope="col">{{ _("Quantity") }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.item.item_name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>
+                                <form action="{{ url_for('student.edit_item',data_id=item.application_id) }}"
+                                      method="post">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                    <input class="btn btn-primary" type="submit" name="{{ item.id }}" value="Del">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {% if application.apply_status_id == 8 %}
+            <div class="col-md-4">
+                <a href="{{ url_for('student.draft',data_id=data_id) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+                </a>
+            </div>
+            <div class="col-md-4 col-md-offset-4">
+                <a href="{{ url_for('student.draft',data_id=data_id) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Save") }}</button>
+                </a>
+            </div>
+        {% else %}
+            <div class="col-md-4">
+                <a href="{{ url_for('student.details_story',data_id=data_id) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Back") }}</button>
+                </a>
+            </div>
+            <div class="col-md-4 col-md-offset-4">
+                <a href="{{ url_for('student.details_story',data_id=data_id) }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">{{ _("Save") }}</button>
+                </a>
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}
